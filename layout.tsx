@@ -1,4 +1,4 @@
 import type { Metadata } from "next";
 import "./globals.css";
-export const metadata: Metadata = { title: "Nexora AI", description: "ابزارهای هوشمند برای رشد کسب‌وکار" };
-export default function RootLayout({children}:{children:React.ReactNode}) { return <html lang="fa" dir="rtl"><body>{children}</body></html>; }
+export const metadata: Metadata = { title: "Nexora AI", description: "ابزارهای هوشمند تولید محتوا" };
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="fa" dir="rtl"><body>{children}</body></html>; }
