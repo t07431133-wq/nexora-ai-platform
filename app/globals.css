@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: Vazirmatn, Tahoma, sans-serif;
+  color: #f4f2ff;
+  background: radial-gradient(circle at 15% 10%, #28205a 0, transparent 35%), #090914;
+}
+
+button, textarea, select {
+  font: inherit;
+}
+
+.page {
+  width: min(100% - 32px, 960px);
+  margin: auto;
+  padding: 48px 0 72px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 70px;
+  gap: 16px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.logo span, .hero h1 span {
+  color: #9c8cff;
+}
+
+.badge {
+  color: #bdb5ff;
+  border: 1px solid #39316d;
+  border-radius: 99px;
+  padding: 8px 14px;
+  font-size: 12px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 38px;
+}
+
+.hero h1 {
+  font-size: clamp(34px, 7vw, 58px);
+  margin: 0 0 16px;
+}
+
+.hero p {
+  color: #aaa8c2;
+}
+
+.panel {
+  background: #17162ae8;
+  border: 1px solid #302b52;
+  border-radius: 24px;
+  padding: 24px;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  border: 1px solid #393454;
+  background: #17162a;
+  color: #c8c4df;
+  border-radius: 12px;
+  padding: 12px 8px;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: #5141a5;
+  color: white;
+}
+
+label {
+  display: block;
+  margin: 16px 0 9px;
+}
+
+textarea, select {
+  width: 100%;
+  border: 1px solid #393454;
+  background: #0e0d1c;
+  color: white;
+  border-radius: 13px;
+  padding: 14px;
+}
+
+textarea {
+  min-height: 145px;
+  resize: vertical;
+}
+
+select {
+  margin-bottom: 18px;
+}
+
+.generate {
+  width: 100%;
+  border: 0;
+  border-radius: 13px;
+  padding: 15px;
+  color: white;
+  font-weight: 700;
+  background: linear-gradient(100deg, #735be8, #a34ee7);
+  cursor: pointer;
+}
+
+.generate:disabled {
+  opacity: .6;
+}
+
+.result {
+  white-space: pre-wrap;
+  line-height: 2;
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px solid #393454;
+  background: #100f20;
+  border-radius: 13px;
+}
+
+.footer {
+  text-align: center;
+  color: #77748f;
+  margin-top: 28px;
+  font-size: 12px;
+}
+
+@media(max-width:640px) {
+  .top { margin-bottom: 48px; }
+  .tabs { grid-template-columns: repeat(2, 1fr); }
+  .panel { padding: 16px; }
+}
