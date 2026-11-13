@@ -1,1 +1,98 @@
+"use client";
+import { useState } from "react";
 
+const tools = [
+  { id: "caption", title: "کپشن اینستاگرام", hint: "موضوع پست یا محصولت رو بنویس..." },
+  { id: "product", title: "معرفی محصول", hint: "نام و ویژگی‌های محصولت رو بنویس..." },
+  { id: "ad", title: "متن تبلیغاتی", hint: "چه چیزی رو می‌خوای تبلیغ کنی؟" },
+  { id: "ideas", title: "ایده محتوا", hint: "حوزه فعالیت یا موضوع صفحه‌ات رو بنویس..." }
+];
+
+export default function Home() {
+  const [active, setActive] = useState("caption");
+  const [input, setInput] = useState("");
+  const [tone, setTone] = useState("حرفه‌ای");
+  const [result, setResult] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const selected = tools.find(x => x.id === active)!;
+
+  async function generate() {
+    if (!input.trim()) {
+      setResult("لطفاً ابتدا موضوع یا توضیحاتت رو وارد کن.");
+      return;
+    }
+
+    setLoading(true);
+    setResult("");
+
+    try {
+      const r = await fetch("/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tool: active, input, tone })
+      });
+      const d = await r.json();
+      setResult(d.text || d.error || "پاسخی دریافت نشد.");
+    } catch {
+      setResult("ارتباط با سرور برقرار نشد.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <main className="page">
+      <header className="top">
+        <div className="logo">NEXORA <span>AI</span></div>
+        <div className="badge">ابزارهای هوشمند تولید محتوا</div>
+      </header>
+
+      <section className="hero">
+        <h1>ایده‌هات رو به <span>محتوا</span> تبدیل کن</h1>
+        <p>با Nexora AI سریع‌تر بنویس، بهتر معرفی کن و خلاقانه‌تر دیده شو.</p>
+      </section>
+
+      <section className="panel">
+        <div className="tabs">
+          {tools.map(t => (
+            <button
+              key={t.id}
+              className={`tab ${active === t.id ? "active" : ""}`}
+              onClick={() => {
+                setActive(t.id);
+                setResult("");
+              }}
+            >
+              {t.title}
+            </button>
+          ))}
+        </div>
+
+        <label htmlFor="prompt">{selected.title}</label>
+        <textarea
+          id="prompt"
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          placeholder={selected.hint}
+        />
+
+        <label htmlFor="tone">لحن متن</label>
+        <select id="tone" value={tone} onChange={e => setTone(e.target.value)}>
+          <option>حرفه‌ای</option>
+          <option>صمیمی</option>
+          <option>رسمی</option>
+          <option>هیجان‌انگیز</option>
+        </select>
+
+        <button className="generate" onClick={generate} disabled={loading}>
+          {loading ? "در حال آماده‌سازی..." : "تولید محتوا"}
+        </button>
+
+        {result && <div className="result" aria-live="polite">{result}</div>}
+      </section>
+
+      <footer className="footer">Nexora AI · نسخه‌ی آزمایشی</footer>
+    </main>
+  );
+}
